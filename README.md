@@ -1,30 +1,45 @@
 
-# Projeto Carro Controlado por Bluetooth e Armazenamento na Nuvem
+# 🚗 Carrinho Controlado por App via Bluetooth e Armazena Dados na Nuvem
 
 Este projeto consiste em um carro controlado por Bluetooth utilizando Arduino, que armazena dados de comandos em uma API com banco de dados na nuvem (MongoDB). A comunicação entre o aplicativo de controle e o Arduino é feita via Bluetooth, enquanto um D1 Wemos ESP8266 captura os comandos enviados e os envia para uma API desenvolvida em Node.js, que armazena os dados em um banco de dados MongoDB para monitoramento e análise.
 
-## Funcionalidades
+#### 📎 Link do projeto referência: https://projecthub.arduino.cc/samanfern/bluetooth-controlled-car-c71cd0
+
+## 🛠 Funcionalidades
 
 - Controle do carro via Bluetooth através de um aplicativo desenvolvido no Kodular.
 - Recepção e execução dos comandos pelo Arduino para controlar o movimento e o estado do carro.
 - Envio dos comandos ao D1 Wemos ESP8266, que os encaminha para a API e os armazena no MongoDB.
 - Consulta de histórico de comandos armazenados para análise e monitoramento.
 
-## Tecnologias Utilizadas
+## 💻 Tecnologias Utilizadas
+<p>
+   <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/VSCode-Dark.svg" alt="VSCode" width="50"/>
+   <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Git.svg" alt="Git" width="50"/>
+   <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Github-Dark.svg" alt="Github" width="50"/>
+   <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Arduino.svg" alt="ArduinoIcon" width="50"/>
+   <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/C.svg" alt="C" width="50"/>
+   <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/TypeScript.svg" alt="Typescript" width="50"/>
+   <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/NodeJS-Dark.svg" alt="NodeJs" width="50"/>
+   <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/MongoDB.svg" alt="MongoDB" width="50"/>
+</p>
 
+- **VSCode**: IDE para desenvolver a API.
+- **Git e Github**: Para controle de versionamento e manipulação de repositório.
 - **Arduino**: Para controle do carro e execução dos comandos recebidos via Bluetooth.
 - **D1 Wemos ESP8266**: Para comunicação Wi-Fi com a API.
-- **Node.js e Express**: Para desenvolvimento da API.
-- **MongoDB**: Para armazenamento dos comandos recebidos.
 - **Kodular**: Para criação do aplicativo de controle Bluetooth.
+- **Typescript**: Linguagem utilizada.
+- **Node.js e Express**: Para desenvolvimento da API e utilização dos métodos http.
+- **MongoDB**: Para armazenamento dos comandos recebidos.
 
-## Requisitos
+## 🧩 Requisitos
 
 - [Node.js](https://nodejs.org/) instalado no sistema
 - [MongoDB Atlas](https://www.mongodb.com/atlas/database) ou uma instância local do MongoDB
 - Biblioteca `ESP8266WiFi` e `ESP8266HTTPClient` instaladas na IDE do Arduino
 
-## Configuração do Projeto
+## ⚙ Configuração do Projeto
 
 ### 1. Configuração do Arduino e D1 Wemos ESP8266
 

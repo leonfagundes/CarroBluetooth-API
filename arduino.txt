@@ -1,0 +1,38 @@
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+
+const char* ssid = "NOME_DA_REDE";
+const char* password = "SENHA_DA_REDE";
+const char* serverName = "http://IPv4:APIPort/api/commands";
+
+void setup() {
+    Serial.begin(9600);
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(1000);
+    }
+}
+
+void loop() {
+    if (Serial.available()) {
+        char command = Serial.read();
+        sendCommandToAPI(command);
+    }
+    delay(100);
+}
+
+void sendCommandToAPI(char command) {
+    if (WiFi.status() == WL_CONNECTED) {
+        HTTPClient http;
+        http.begin(serverName);
+        http.addHeader("Content-Type", "application/json");
+        String jsonData = "{\"command\":\"";
+        jsonData += command;
+        jsonData += "\",\"status\":\"executed\"}";
+        int httpResponseCode = http.POST(jsonData);
+        if (httpResponseCode > 0) {
+            String response = http.getString();
+        }
+        http.end();
+    }
+}

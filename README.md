@@ -29,7 +29,8 @@ Este projeto consiste em um carro controlado por Bluetooth utilizando Arduino, q
 - **Arduino**: Para controle do carro e execução dos comandos recebidos via Bluetooth.
 - **D1 Wemos ESP8266**: Para comunicação Wi-Fi com a API.
 - **Kodular**: Para criação do aplicativo de controle Bluetooth.
-- **Typescript**: Linguagem utilizada.
+- **C**: Linguagem utilizada no arduino.
+- **Typescript**: Linguagem utilizada na API.
 - **Node.js e Express**: Para desenvolvimento da API e utilização dos métodos http.
 - **MongoDB**: Para armazenamento dos comandos recebidos.
 

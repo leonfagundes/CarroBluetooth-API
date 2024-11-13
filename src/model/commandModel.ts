@@ -8,8 +8,7 @@ export interface ICommand extends Document {
 
 const CommandSchema: Schema = new Schema({
     command: { type: String, required: true },
-    timestamp: { type: Date, default: Date.now },
-    status: { type: String, required: true },
+    timestamp: { type: Date, default: Date.now }
 });
 
 export default mongoose.model<ICommand>('Command', CommandSchema);

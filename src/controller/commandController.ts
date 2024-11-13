@@ -3,8 +3,8 @@ import Command, { ICommand } from '../model/commandModel';
 
 export const registerCommand = async (req: Request, res: Response) => {
     try {
-        const { command, status } = req.body;
-        const newCommand: ICommand = new Command({ command, status });
+        const { command } = req.body;
+        const newCommand: ICommand = new Command({ command });
         await newCommand.save();
         res.status(201).json({ message: 'Command registered', data: newCommand });
     } catch (error) {

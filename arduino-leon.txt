@@ -1,0 +1,87 @@
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+
+// Configurações Wi-Fi
+const char* ssid = "SEU_SSID";  // substitua pelo SSID da sua rede Wi-Fi
+const char* password = "SUA_SENHA";  // substitua pela senha do Wi-Fi
+const String baseUrl = "http://localhost:5000/api/command";
+
+WiFiClient wifiClient;
+char t;
+
+void setup() {
+  // Configurações de pinos do motor
+  pinMode(13, OUTPUT);  // motores da esquerda para frente
+  pinMode(12, OUTPUT);  // motores da esquerda para trás
+  pinMode(11, OUTPUT);  // motores da direita para frente
+  pinMode(10, OUTPUT);  // motores da direita para trás
+
+  Serial.begin(9600);  // Comunicação serial com o módulo Bluetooth
+
+  // Conectar ao Wi-Fi
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.println("Conectando ao WiFi...");
+  }
+  Serial.println("Conectado ao WiFi!");
+}
+
+void loop() {
+  if (Serial.available()) {
+    t = Serial.read();
+    Serial.println(t);
+    sendCommandToAPI(t);  // envia o comando para a API
+  }
+
+  if (t == 'F') {  // mover para frente
+    digitalWrite(10, LOW);
+    digitalWrite(12, LOW);
+    digitalWrite(13, HIGH);
+    digitalWrite(11, HIGH);
+  } else if (t == 'B') {  // mover para trás
+    digitalWrite(11, LOW);
+    digitalWrite(13, LOW);
+    digitalWrite(12, HIGH);
+    digitalWrite(10, HIGH);
+  } else if (t == 'L') {  // virar para a direita
+    digitalWrite(10, LOW);
+    digitalWrite(13, LOW);
+    digitalWrite(11, HIGH);
+    digitalWrite(12, HIGH);
+  } else if (t == 'R') {  // virar para a esquerda
+    digitalWrite(11, LOW);
+    digitalWrite(12, LOW);
+    digitalWrite(10, HIGH);
+    digitalWrite(13, HIGH);
+  } else if (t == 'S') {  // parar
+    digitalWrite(13, LOW);
+    digitalWrite(12, LOW);
+    digitalWrite(11, LOW);
+    digitalWrite(10, LOW);
+  }
+  delay(100);
+}
+
+// Função para enviar o comando para a API
+void sendCommandToAPI(char command) {
+  if (WiFi.status() == WL_CONNECTED) {  // verifica se está conectado
+    HTTPClient http;
+    http.begin(wifiClient, baseUrl);  // define a URL da API usando WiFiClient
+    http.addHeader("Content-Type", "application/json");
+
+    String jsonData = "{\"command\": \"" + String(command) + "\"}";
+    int httpResponseCode = http.POST(jsonData);
+
+    if (httpResponseCode > 0) {
+      Serial.print("Código de resposta HTTP: ");
+      Serial.println(httpResponseCode);
+    } else {
+      Serial.print("Erro ao enviar comando: ");
+      Serial.println(http.errorToString(httpResponseCode).c_str());
+    }
+    http.end();
+  } else {
+    Serial.println("Erro: Não conectado ao WiFi");
+  }
+}

@@ -20,3 +20,12 @@ export const getCommands = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Error retrieving commands', error });
     }
 };
+
+export const deleteCommands = async (req: Request, res: Response) => {
+    try {
+        await Command.deleteMany();
+        res.status(200).json({ message: 'All commands deleted' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting commands', error });
+    }
+}

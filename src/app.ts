@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectDB } from './config/database';
+import { setupSwagger } from './swagger'; 
 import commandRoutes from './routes/commandRoutes';
 
 dotenv.config();
@@ -15,11 +16,14 @@ const startServer = async () => {
 
     app.use(cors());
     app.use(bodyParser.json());
+    
     app.use('/api', commandRoutes);
+
+    setupSwagger(app);
 
     app.listen(PORT, () => console.log(`Server running on port ${PORT} 🚀`));
   } catch (error) {
-    console.error("Error connecting to the database:", error);
+    console.error('Error connecting to the database:', error);
     process.exit(1); 
   }
 };
